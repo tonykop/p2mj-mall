@@ -1,0 +1,8 @@
+/**第七章数据库测试创表语句**/
+DROP TABLE IF EXISTS jdbc_test;
+
+CREATE TABLE jdbc_test(
+ds_id int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+ds_type VARCHAR(100) DEFAULT NULL COMMENT '数据源类型',
+ds_name VARCHAR(100) DEFAULT NULL COMMENT '数据源名称',
+PRIMARY KEY (ds_id) USING BTREE)ENGINE = InnoDB CHARACTER SET = utf8;
