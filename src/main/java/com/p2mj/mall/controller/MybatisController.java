@@ -33,7 +33,7 @@ public class MybatisController {
 
     //修改一条记录
     @GetMapping("/users/mybatis/update")
-    public Boolean uoadte(Integer id,String name, String password){
+    public Boolean upadte(Integer id,String name, String password){
         if(id == null || id< 1 || StringUtils.isEmpty(name)||StringUtils.isEmpty(password)) {
               return false;
         }
@@ -41,8 +41,14 @@ public class MybatisController {
         user.setId(id);
         user.setName(name);
         user.setPassword(password);
-        return userDao.updUser(user) > 0;
+        return userDao.updateUser(user) > 0;
     }
    //删除一条记录
-    @GetMapping("/users/mybatis")
+    @GetMapping("/users/mybatis/delete")
+    public  boolean delete(Integer id ){
+        if(id == null || id<1){
+            return false;
+        }
+        return userDao.delUser(id) >0;
+    }
 }

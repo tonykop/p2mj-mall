@@ -25,7 +25,7 @@ public interface UserDao {
      * @param user
      */
 
-    int updUser(User user);
+    int updateUser(User user);
 
     /**
      * 删除
