@@ -15,3 +15,13 @@ CREATE TABLE tb_user(
  name VARCHAR(100) DEFAULT NULL COMMENT '登录名',
 password VARCHAR(100) DEFAULT NULL COMMENT '密码',
 PRIMARY KEY (id) USING BTREE)ENGINE = InnoDB CHARACTER SET = utf8;
+
+/**创建用户token表**/
+CREATE TABLE `p2mj_mall_user_token` (
+`user_id` BIGINT(20) NOT NULL COMMENT '用户主键ID',
+`token` VARCHAR(32) NOT NULL COMMENT 'token 值（32位字符串）',
+`update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+`expire_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'token过期时间',
+PRIMARY KEY (`user_id`)USING BTREE,
+UNIQUE KEY `uq_token` (`token`)USING BTREE
+)ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;

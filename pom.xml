@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.7</version><!--匹配swagger2版本将spring-boot版本从2.7.13降低到2.5.7-->
+		<version>2.7.5</version><!--匹配swagger2版本将spring-boot版本从2.7.13降低到2.5.7-->
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.p2mj.mall</groupId>
@@ -45,29 +45,55 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>2.1.3</version>
 		</dependency>
+
+        <!--集成新版本swagger 只需要springfox-boot-starter-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+            <!--这个报错的意思是整型数据类型格式异常: 传入了空字符串给整型数据类型,导致该错误.
+
+       通过查阅网上资料可知:
+
+      这是因为 springfox-swagger2(2.9.2) 依赖于 swagger-models(1.5.20) ;
+
+     而该版本的swagger会将实体类中非String类型的属性默认赋值为空字符串.
+
+        因此需要手动添加更高版本的 swagger-models依赖!!!!!!
+
+     所以在启动swaggerUI页面后,此时的实体类非String属性由于没有默认值,就会出现NumberFormatException: For input string:””.
+     作为一个后台开发，我们的项目中一般都会使用swagger，今天发现项目中使用的swagger一直提示：java.lang.NumberFormatException: For input string: ""
+
+   1.实体类使用@ApiModelProperty时，example属性没有赋值导致的
+
+     2.简单粗暴处理方法，找到pom文件，添加如下依赖-->
 		<dependency>
-			<!--引入swagger2-->
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>2.8.0</version>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.5.21</version>
 		</dependency>
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.8.0</version>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-models</artifactId>
+			<version>1.5.21</version>
 		</dependency>
 
 		<!--引入swagger2 end-->
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-actuator</artifactId>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 	</dependencies>
 
