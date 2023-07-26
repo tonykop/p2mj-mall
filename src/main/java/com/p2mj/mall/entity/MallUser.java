@@ -17,9 +17,11 @@ public class MallUser {
 
     private String introduceSign;
 
+    private String address;
+
     private Byte isDeleted;
 
-    private Byte lockFlag;
+    private Byte lockedFlag;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
@@ -64,6 +66,14 @@ public class MallUser {
         this.introduceSign = introduceSign == null ? null:introduceSign.trim();
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Byte getIsDeleted() {
         return isDeleted;
     }
@@ -72,12 +82,12 @@ public class MallUser {
         this.isDeleted = isDeleted;
     }
 
-    public Byte getLockFlag() {
-        return lockFlag;
+    public Byte getLockedFlag() {
+        return lockedFlag;
     }
 
-    public void setLockFlag(Byte lockFlag) {
-        this.lockFlag = lockFlag;
+    public void setLockedFlag(Byte lockedFlag) {
+        this.lockedFlag = lockedFlag;
     }
 
     public Date getCreateTime() {
@@ -96,8 +106,9 @@ public class MallUser {
                 ", loginName='" + loginName + '\'' +
                 ", passwordMd5='" + passwordMd5 + '\'' +
                 ", introduceSign='" + introduceSign + '\'' +
+                ", address='" + address + '\'' +
                 ", isDeleted=" + isDeleted +
-                ", lockFlag=" + lockFlag +
+                ", lockFlag=" + lockedFlag +
                 ", createTime=" + createTime +
                 '}';
     }
