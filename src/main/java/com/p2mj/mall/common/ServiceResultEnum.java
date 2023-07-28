@@ -27,6 +27,12 @@ public enum ServiceResultEnum {
     LOGIN_VERIFY_CODE_ERROR("验证码错误！"),
     //新增用户被锁定错误
     LOGIN_USER_LOCKED_ERROR("该用户已被锁!"),
+    //新增token超时或不存在错误
+    TOKEN_EXPIRE_ERROR("TOKEN超时或者不存在！"),
+    //新增用户不存在错误
+    USER_NULL_ERROR("用户不存在！"),
+    //新增用户未登录错误
+    NOT_LOGIN_ERROR("用户未登录"),
 
     SAME_INDEX_CONFIG_EXIST("已存在相同的首页配置项！"),
 

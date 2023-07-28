@@ -25,4 +25,11 @@
         where login_name = #{loginName} and password_md5 = #{password} and is_deleted = 0
     </select>
 
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from p2mj_mall_user
+        where user_id = #{userId,jdbcType=BIGINT} and is_deleted = 0
+    </select>
+
 </mapper>

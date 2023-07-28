@@ -1,7 +1,9 @@
 package com.p2mj.mall.controller;
 
 import com.p2mj.mall.common.Constants;
+import com.p2mj.mall.config.annotation.TokenToMallUser;
 import com.p2mj.mall.controller.param.MallUserLoginParam;
+import com.p2mj.mall.entity.MallUser;
 import com.p2mj.mall.service.MallUserService;
 import com.p2mj.mall.util.Result;
 import com.p2mj.mall.util.ResultGenerator;
@@ -10,10 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -43,6 +42,31 @@ public class MallUserController {
 
         //登录失败
         return ResultGenerator.genFailResult(loginResult);
+    }
+
+    @GetMapping(value = "/test1")
+    @ApiOperation(value = "测试接口",notes = "方法中含有@TokenToMallUser注释")
+    public Result<String> test1(@TokenToMallUser MallUser user){
+        //此接口含有@TokenToMallUser注解，即需要登录验证的接口
+        Result result = null;
+        if(user == null){
+            //如果通过请求header中的token未查询到用户即token无效，则登录验证失败，返回未登录错误码
+            result = ResultGenerator.genErrorResult(416,"未登录");
+            return result;
+        }else{
+            //登录验证通过
+            result= ResultGenerator.genSuccessResult("登录验证通过");
+        }
+
+        return result;
+    }
+    @GetMapping(value = "/test2")
+    @ApiOperation(value = "测试接口",notes = "方法中无@TokenToMallUser注释")
+    public Result<String> test2(){
+        //此接口不含@TokenToMallUser注解，即访问此接口无须登录验证，此类接口在实际开发中应该很少，为了安全起见，所有接口都应该做登录验证
+        Result result = ResultGenerator.genSuccessResult("此接口无需登录验证，请求成功");
+        //直接返回业务逻辑返回的数据即可
+        return  result;
     }
 
 

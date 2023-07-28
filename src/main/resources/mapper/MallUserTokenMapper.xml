@@ -52,17 +52,17 @@
         </if>
     </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.p2mj.mall.entity.MallUserToken">
-        update p2mj_mall_user_token t
+    <update id="updatePrimaryKeySelective" parameterType="com.p2mj.mall.entity.MallUserToken">
+        update p2mj_mall_user_token
           <set>
               <if test="token != null">
-                  t.token = #{token,jdbcType=VARCHAR},
+                  token = #{token,jdbcType=VARCHAR},
               </if>
-              <if test="updateTime ！= null">
-                  t.update_time =#{updateTime,jdbcType = TIMESTAMP},
+              <if test="updateTime != null">
+                  update_time = #{updateTime,jdbcType = TIMESTAMP},
               </if>
               <if test="expireTime != null">
-                  t.expire_time = #{expireTime,jdbcType= TIMESTAMP},
+                  expire_time = #{expireTime,jdbcType= TIMESTAMP},
               </if>
           </set>
           where user_id = #{userId,jdbcType=BIGINT}
