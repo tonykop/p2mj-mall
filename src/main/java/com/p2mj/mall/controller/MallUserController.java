@@ -4,11 +4,13 @@ import com.p2mj.mall.common.Constants;
 import com.p2mj.mall.config.annotation.TokenToMallUser;
 import com.p2mj.mall.controller.param.MallUserLoginParam;
 import com.p2mj.mall.entity.MallUser;
+import com.p2mj.mall.entity.MallUserUpdateParam;
 import com.p2mj.mall.service.MallUserService;
 import com.p2mj.mall.util.Result;
 import com.p2mj.mall.util.ResultGenerator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -69,5 +71,42 @@ public class MallUserController {
         return  result;
     }
 
+
+    @GetMapping("/user/info")
+    @ApiOperation(value = "获取用户信息",notes = "")
+    public Result<MallUser> getUserDetail(@TokenToMallUser MallUser loginMallUser){
+        return ResultGenerator.genSuccessResult(loginMallUser);
+    }
+
+    @PutMapping("/user/info")
+    @ApiOperation(value = "修改用户信息",notes = "")
+    public Result updateInfo(@RequestBody @ApiParam("用户信息") MallUserUpdateParam mallUserUpdateParam,@TokenToMallUser MallUser loginMallUser){
+        Boolean flag = mallUserService.updateUserInfo(mallUserUpdateParam,loginMallUser.getUserId().toString());
+        if(flag){
+            //返回成功
+            Result result = ResultGenerator.genSuccessResult();
+            return result;
+        }else {
+            //返回失败
+            Result result = ResultGenerator.genFailResult("修改用户信息失败");
+            return  result;
+        }
+    }
+
+    @PostMapping("/user/logout")
+    @ApiOperation(value = "登出接口",notes = "清除token")
+    public Result<String> logout(@TokenToMallUser MallUser loginMallUser){
+
+        Boolean flage = mallUserService.logout(loginMallUser.getUserId());
+        logger.info("用户注销 api,loginMallUser={}",loginMallUser.getUserId());
+        //注销成功
+        if(flage){
+            return ResultGenerator.genSuccessResult();
+        }
+
+        //注销失败
+        return ResultGenerator.genFailResult("注销失败");
+
+    }
 
 }

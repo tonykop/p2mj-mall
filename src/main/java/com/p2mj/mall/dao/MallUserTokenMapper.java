@@ -2,6 +2,7 @@ package com.p2mj.mall.dao;
 
 import com.p2mj.mall.entity.MallUser;
 import com.p2mj.mall.entity.MallUserToken;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,4 +15,6 @@ public interface MallUserTokenMapper {
     MallUserToken selectByToken(String token);
 
     int updatePrimaryKeySelective(MallUserToken record);
+
+    int logout(@Param("userId") Long userId);
 }

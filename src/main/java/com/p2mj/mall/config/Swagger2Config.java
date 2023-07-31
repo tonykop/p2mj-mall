@@ -30,8 +30,7 @@ public class Swagger2Config {
         List<RequestParameter> swaggerParams = new ArrayList<>();
         tokenParam.name("token").description("用户认证信息")
                 .in(ParameterType.HEADER)
-                //.modelRef(new ModelRef("string")).parameterType("header")
-                .required(false).build();//header中的ticket参数非必填，传空也可以
+                .required(false).build();
         swaggerParams.add(tokenParam.build());
 
         return new Docket(DocumentationType.SWAGGER_2)

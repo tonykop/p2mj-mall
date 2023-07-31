@@ -1,5 +1,7 @@
 package com.p2mj.mall.service;
 
+import com.p2mj.mall.entity.MallUserUpdateParam;
+
 public interface MallUserService {
     /**
      * 用户登录
@@ -11,4 +13,8 @@ public interface MallUserService {
      */
 
     String login(String loginName, String passwordMD5);
+
+    Boolean updateUserInfo(MallUserUpdateParam mallUserUpdateParam,String userId);
+
+    Boolean logout(Long userId);
 }

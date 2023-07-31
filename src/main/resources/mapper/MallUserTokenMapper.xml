@@ -67,4 +67,8 @@
           </set>
           where user_id = #{userId,jdbcType=BIGINT}
     </update>
+    <delete id="logout">
+        delete from p2mj_mall_user_token
+        where user_id = #{userId,jdbcType=BIGINT}
+    </delete>
 </mapper>

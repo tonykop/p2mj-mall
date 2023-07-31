@@ -5,6 +5,7 @@ import com.p2mj.mall.dao.MallUserMapper;
 import com.p2mj.mall.dao.MallUserTokenMapper;
 import com.p2mj.mall.entity.MallUser;
 import com.p2mj.mall.entity.MallUserToken;
+import com.p2mj.mall.entity.MallUserUpdateParam;
 import com.p2mj.mall.service.MallUserService;
 import com.p2mj.mall.util.NumberUtil;
 import com.p2mj.mall.util.SystemUtil;
@@ -93,4 +94,23 @@ public class MallUserServiceImpl implements MallUserService {
         String src = timeStr + userId + NumberUtil.genRandomNum(4);
         return SystemUtil.genToken(src);
     }
+
+    @Override
+    public Boolean updateUserInfo(MallUserUpdateParam mallUserUpdateParam, String userId) {
+
+        int flag = mallUserMapper.updateByPrimaryKeySelective(mallUserUpdateParam,userId);
+        if(flag > 0){
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public Boolean logout(Long userId) {
+
+        return mallUserTokenMapper.logout(userId) >=1;
+    }
+
+
 }

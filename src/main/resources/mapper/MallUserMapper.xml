@@ -32,4 +32,24 @@
         where user_id = #{userId,jdbcType=BIGINT} and is_deleted = 0
     </select>
 
+    <update id="updateByPrimaryKeySelective">
+        update p2mj_mall_user
+        <set>
+            <if test="mallUserUpdateParam.nickName != null">
+                nick_name = #{mallUserUpdateParam.nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="mallUserUpdateParam.passwordMd5 != null">
+                password_md5 = #{mallUserUpdateParam.passwordMd5,jdbcType=VARCHAR},
+            </if>
+            <if test="mallUserUpdateParam.introduceSign != null">
+                introduce_sign = #{mallUserUpdateParam.introduceSign,jdbcType=VARCHAR},
+            </if>
+            <if test="mallUserUpdateParam.address != null">
+                address = #{mallUserUpdateParam.address,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+
 </mapper>

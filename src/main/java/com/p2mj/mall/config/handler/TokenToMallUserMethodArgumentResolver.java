@@ -21,6 +21,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * (2)通过token值来查询MallUserToken对象，查看是否存在或是否过期，如果不存在或已过期，则返回错误信息给前端；如果正常，则继续后续流程。
  * (3)通过MallUserToken对象中的userId字段查询MallUser用户对象，判断是否存在和是否已被封禁，如果用户状态正常，则返回用户对象供对应的方法使用，否则返回错误信息。
  */
+//HandlerMethodArgumentResolver是spring提供的参数注解解析器
 @Component
 public class TokenToMallUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
