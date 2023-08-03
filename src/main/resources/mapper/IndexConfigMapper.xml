@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.p2mj.mall.dao.IndexConfigMapper">
+    <resultMap id="BaseResultMap" type="com.p2mj.mall.entity.IndexConfig">
+        <id column="config_id" jdbcType="BIGINT" property="configId"/>
+        <result column="config_name" jdbcType="VARCHAR" property="configName"/>
+        <result column="config_type" jdbcType="TINYINT" property="configType"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="redirect_url" jdbcType="VARCHAR" property="redirectUrl"/>
+        <result column="config_rank" jdbcType="INTEGER" property="configRank"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    config_id, config_name, config_type, goods_id, redirect_url, config_rank, is_deleted,
+    create_time, create_user, update_time, update_user
+  </sql>
+    <select id="findIndexConfigByTypeAndNum" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from p2mj_mall_index_config
+        where config_type = #{configType} and is_deleted = 0
+        order by config_rank desc
+        limit #{number}
+    </select>
+
+</mapper>
