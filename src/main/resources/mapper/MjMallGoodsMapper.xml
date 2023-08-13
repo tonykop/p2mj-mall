@@ -46,4 +46,65 @@
         );
     </select>
 
+    <!--20230812新增，添加分页搜索查询-->
+    <select id="findMjMallGoodsListBySearch" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from p2mj_mall_goods_info
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="goodsCategoryId!=null and goodsCategoryId!=''">
+                and goods_category_id = #{goodsCategoryId}
+            </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+        </where>
+        <if test="orderBy!=null and orderBy!=''">
+            <choose>
+                <when test="orderBy == 'new'">
+                    <!-- 按照发布时间倒序排列 -->
+                    order by goods_id desc
+                </when>
+                <when test="orderBy == 'price'">
+                    <!-- 按照售价从小到大排列 -->
+                    order by selling_price asc
+                </when>
+                <otherwise>
+                    <!-- 默认按照库存数量从大到小排列 -->
+                    order by stock_num desc
+                </otherwise>
+            </choose>
+        </if>
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="getToTalMjMallGoodsBySearch" parameterType="Map" resultType="int">
+        select count(*) from p2mj_mall_goods_info
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="goodsCategoryId!=null and goodsCategoryId!=''">
+                and goods_category_id = #{goodsCategoryId}
+            </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByPrimarykey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from p2mj_mall_goods_info
+        where goods_id = #{goodsId,jdbcType=BIGINT}
+    </select>
+
 </mapper>
